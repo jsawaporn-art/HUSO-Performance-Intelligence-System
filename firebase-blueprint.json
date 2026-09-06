@@ -1,0 +1,353 @@
+{
+  "entities": {
+    "SystemConfig": {
+      "title": "SystemConfig",
+      "description": "System wide configuration, fiscal years, thresholds and active states",
+      "type": "object",
+      "properties": {
+        "facultyName": { "type": "string" },
+        "currentFiscalYear": { "type": "string" },
+        "availableFiscalYears": { "type": "array" },
+        "submissionDeadlineDay": { "type": "number" },
+        "systemLockDate": { "type": "string" },
+        "fastTrackThreshold": { "type": "number" },
+        "thresholds": { "type": "object" },
+        "updatedAt": { "type": "string" }
+      }
+    },
+    "FiscalYear": {
+      "title": "FiscalYear",
+      "description": "Fiscal year configuration and active status",
+      "type": "object",
+      "properties": {
+        "year": { "type": "string" },
+        "isCurrent": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["ACTIVE", "CLOSED", "DRAFT"] },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["year", "status"]
+    },
+    "Department": {
+      "title": "Department",
+      "description": "Academic department or administrative division Master Data (8 units)",
+      "type": "object",
+      "properties": {
+        "departmentId": { "type": "string" },
+        "id": { "type": "string" },
+        "departmentName": { "type": "string" },
+        "name": { "type": "string" },
+        "departmentType": { "type": "string" },
+        "type": { "type": "string" },
+        "description": { "type": "string" },
+        "responsiblePersonIds": { "type": "array" },
+        "responsiblePersonNames": { "type": "array" },
+        "displayOrder": { "type": "number" },
+        "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE"] },
+        "createdAt": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "updatedBy": { "type": "string" }
+      },
+      "required": ["departmentId", "departmentName", "status", "displayOrder"]
+    },
+    "StrategicIssue": {
+      "title": "StrategicIssue",
+      "description": "Strategic issue and objectives for a fiscal year",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "fiscalYear": { "type": "string" },
+        "objectives": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "fiscalYear"]
+    },
+    "Indicator": {
+      "title": "Indicator",
+      "description": "Key Performance Indicator (KPI) or Key Value Indicator (KVI)",
+      "type": "object",
+      "properties": {
+        "indicatorId": { "type": "string" },
+        "code": { "type": "string" },
+        "type": { "type": "string", "enum": ["KPI", "KVI"] },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "operationalDef": { "type": "string" },
+        "vision": { "type": "string" },
+        "strategyId": { "type": "string" },
+        "strategyName": { "type": "string" },
+        "objective": { "type": "string" },
+        "strategy": { "type": "string" },
+        "mission": { "type": "string" },
+        "unit": { "type": "string" },
+        "direction": { "type": "string", "enum": ["MORE_IS_BETTER", "LESS_IS_BETTER", "EXACT_TARGET", "MILESTONE"] },
+        "formula": { "type": "string" },
+        "source": { "type": "string" },
+        "frequency": { "type": "string", "enum": ["MONTHLY", "QUARTERLY", "ANNUALLY"] },
+        "baseline": { "type": "number" },
+        "ownerMain": { "type": "string" },
+        "ownerCo": { "type": "string" },
+        "departmentId": { "type": "string" },
+        "departmentName": { "type": "string" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "weight": { "type": "number" },
+        "priority": { "type": "string", "enum": ["HIGH", "MEDIUM", "LOW"] },
+        "isActive": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE", "DELETED"] },
+        "remarks": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["indicatorId", "code", "name", "type", "departmentId"]
+    },
+    "Target": {
+      "title": "Target",
+      "description": "Annual, quarterly, and monthly target metrics for an indicator",
+      "type": "object",
+      "properties": {
+        "targetId": { "type": "string" },
+        "indicatorId": { "type": "string" },
+        "fiscalYear": { "type": "string" },
+        "annualTarget": { "type": "number" },
+        "minTarget": { "type": "number" },
+        "challengeTarget": { "type": "number" },
+        "baseline": { "type": "number" },
+        "q1Target": { "type": "number" },
+        "q2Target": { "type": "number" },
+        "q3Target": { "type": "number" },
+        "q4Target": { "type": "number" },
+        "monthlyTargets": { "type": "array" },
+        "cumulativeTargets": { "type": "array" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["targetId", "indicatorId", "fiscalYear"]
+    },
+    "MonthlyProgress": {
+      "title": "MonthlyProgress",
+      "description": "Monthly performance progress report with traffic light and variance",
+      "type": "object",
+      "properties": {
+        "progressId": { "type": "string" },
+        "fiscalYear": { "type": "string" },
+        "month": { "type": "number" },
+        "monthNameTh": { "type": "string" },
+        "quarter": { "type": "string" },
+        "indicatorId": { "type": "string" },
+        "indicatorCode": { "type": "string" },
+        "indicatorName": { "type": "string" },
+        "indicatorType": { "type": "string" },
+        "targetMonthly": { "type": "number" },
+        "targetCumulative": { "type": "number" },
+        "actualMonthly": { "type": "number" },
+        "actualCumulative": { "type": "number" },
+        "achievementPercent": { "type": "number" },
+        "variance": { "type": "number" },
+        "varianceText": { "type": "string" },
+        "status": { "type": "string", "enum": ["ON_TRACK", "WATCH", "RISK", "CRITICAL", "NO_DATA"] },
+        "summary": { "type": "string" },
+        "problems": { "type": "string" },
+        "cause": { "type": "string" },
+        "solution": { "type": "string" },
+        "fastTrackMeasure": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "loggerName": { "type": "string" },
+        "loggedDate": { "type": "string" },
+        "lastModified": { "type": "string" },
+        "verificationStatus": { "type": "string", "enum": ["PENDING", "SUBMITTED", "APPROVED", "REJECTED"] },
+        "reviewerComment": { "type": "string" },
+        "evidenceCount": { "type": "number" }
+      },
+      "required": ["progressId", "indicatorId", "fiscalYear", "month"]
+    },
+    "Evidence": {
+      "title": "Evidence",
+      "description": "Evidence documents or external drive attachments",
+      "type": "object",
+      "properties": {
+        "evidenceId": { "type": "string" },
+        "progressId": { "type": "string" },
+        "indicatorId": { "type": "string" },
+        "title": { "type": "string" },
+        "fileType": { "type": "string" },
+        "driveUrl": { "type": "string" },
+        "docLink": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "uploadDate": { "type": "string" },
+        "verificationStatus": { "type": "string" },
+        "reviewerName": { "type": "string" },
+        "reviewerComments": { "type": "string" }
+      },
+      "required": ["evidenceId", "title"]
+    },
+    "ActionPlan": {
+      "title": "ActionPlan",
+      "description": "Executive action directives and operational action plans",
+      "type": "object",
+      "properties": {
+        "directiveId": { "type": "string" },
+        "indicatorId": { "type": "string" },
+        "indicatorCode": { "type": "string" },
+        "indicatorName": { "type": "string" },
+        "title": { "type": "string" },
+        "details": { "type": "string" },
+        "departmentId": { "type": "string" },
+        "departmentName": { "type": "string" },
+        "assignee": { "type": "string" },
+        "deadline": { "type": "string" },
+        "status": { "type": "string", "enum": ["OPEN", "IN_PROGRESS", "COMPLETED", "OVERDUE"] },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["directiveId", "title", "assignee", "status"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User account profile and role assignments",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string", "enum": ["ADMIN", "EXECUTIVE", "OWNER", "REVIEWER", "VIEWER"] },
+        "rolesDisplay": { "type": "string" },
+        "departmentId": { "type": "string" },
+        "departmentName": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "lastLogin": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "email", "role"]
+    },
+    "MonthlyReport": {
+      "title": "MonthlyReport",
+      "description": "Aggregated strategic performance monthly report",
+      "type": "object",
+      "properties": {
+        "reportId": { "type": "string" },
+        "fiscalYear": { "type": "string" },
+        "month": { "type": "number" },
+        "monthNameTh": { "type": "string" },
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "driveUrl": { "type": "string" },
+        "pdfUrl": { "type": "string" },
+        "docUrl": { "type": "string" },
+        "status": { "type": "string" },
+        "generatedAt": { "type": "string" },
+        "generatedBy": { "type": "string" }
+      },
+      "required": ["reportId", "fiscalYear", "month", "title"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "System alerts and submission reminder notifications",
+      "type": "object",
+      "properties": {
+        "notificationId": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string", "enum": ["ALERT", "INFO", "WARNING", "SUCCESS"] },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["notificationId", "title", "message"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "Audit trail log of all system and CRUD events",
+      "type": "object",
+      "properties": {
+        "logId": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "role": { "type": "string" },
+        "action": { "type": "string" },
+        "recordId": { "type": "string" },
+        "details": { "type": "string" },
+        "oldData": { "type": "object" },
+        "newData": { "type": "object" },
+        "status": { "type": "string" }
+      },
+      "required": ["logId", "timestamp", "userId", "action"]
+    },
+    "Sequence": {
+      "title": "Sequence",
+      "description": "Transactional counter for unique sequential indicator numbering",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "lastNumber": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "lastNumber"]
+    }
+  },
+  "firestore": {
+    "/systemConfig/{configId}": {
+      "schema": "SystemConfig",
+      "description": "System global configuration and thresholds"
+    },
+    "/fiscalYears/{yearId}": {
+      "schema": "FiscalYear",
+      "description": "Fiscal year definitions"
+    },
+    "/departments/{deptId}": {
+      "schema": "Department",
+      "description": "Faculty departments and divisions"
+    },
+    "/strategies/{strategyId}": {
+      "schema": "StrategicIssue",
+      "description": "Strategic issues and goals"
+    },
+    "/indicators/{indicatorId}": {
+      "schema": "Indicator",
+      "description": "Key performance indicators (KPI/KVI)"
+    },
+    "/targets/{targetId}": {
+      "schema": "Target",
+      "description": "Annual and monthly target values"
+    },
+    "/monthlyProgress/{progressId}": {
+      "schema": "MonthlyProgress",
+      "description": "Monthly performance progress and variances"
+    },
+    "/evidence/{evidenceId}": {
+      "schema": "Evidence",
+      "description": "Evidence documents and drive links"
+    },
+    "/actionPlans/{planId}": {
+      "schema": "ActionPlan",
+      "description": "Executive directives and fast-track action plans"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User accounts and RBAC access roles"
+    },
+    "/monthlyReports/{reportId}": {
+      "schema": "MonthlyReport",
+      "description": "Generated monthly performance summaries"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User notifications and submission alerts"
+    },
+    "/activityLogs/{logId}": {
+      "schema": "ActivityLog",
+      "description": "Audit trail activity logs"
+    },
+    "/sequences/{seqId}": {
+      "schema": "Sequence",
+      "description": "Auto-increment sequences"
+    }
+  }
+}

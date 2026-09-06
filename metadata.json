@@ -1,0 +1,8 @@
+{
+  "name": "Remix ระบบติดตาม KPI และ KVI คณะมนุษยศาสตร์และสังคมศาสตร์",
+  "description": "HUSO Performance Intelligence & BRIDGE Process Improvement System - ระบบติดตามผลการดำเนินงานตามแผนยุทธศาสตร์ KPI/KVI และระบบบริหารจัดการปรับปรุงกระบวนการทำงานตาม BRIDGE Model (EdPEx) คณะมนุษยศาสตร์และสังคมศาสตร์ มหาวิทยาลัยราชภัฏยะลา",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

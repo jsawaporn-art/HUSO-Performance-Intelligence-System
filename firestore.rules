@@ -1,0 +1,104 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. Immutable System Backups & History (Deletion Forbidden)
+    match /systemBackups/{backupId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if false;
+    }
+
+    match /backupHistory/{backupId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if false;
+    }
+
+    // 2. Immutable Activity & Audit Logs (Append-only, Deletion Forbidden)
+    match /activityLogs/{logId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // 3. Master Data Collections (Config, Departments, Strategies, Users, Personnel, Sequences)
+    match /systemConfig/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /System_Config/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /departments/{deptId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /strategies/{stratId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /personnel/{personnelId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /sequences/{seqId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // 4. Operational Data Collections
+    match /indicators/{indicatorId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /targets/{targetId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /monthlyProgress/{progressId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /evidence/{evidenceId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /actionPlans/{planId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /monthlyReports/{reportId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /trash/{trashId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Fallback catch-all for any other collections
+    match /{document=**} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

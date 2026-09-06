@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10.5pt !important;
+    overflow: visible !important;
+    height: auto !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Unclip containers when printing executive reports */
+  body.printing-executive-report {
+    overflow: visible !important;
+  }
+
+  body.printing-executive-report * {
+    visibility: hidden;
+  }
+
+  body.printing-executive-report .fixed,
+  body.printing-executive-report .overflow-hidden,
+  body.printing-executive-report .overflow-y-auto,
+  body.printing-executive-report .max-h-\[96vh\],
+  body.printing-executive-report .max-h-\[94vh\],
+  body.printing-executive-report .max-h-\[92vh\] {
+    position: static !important;
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+    width: 100% !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Print targets visibility */
+  body.printing-executive-report #bridge-executive-report-paper,
+  body.printing-executive-report #bridge-executive-report-paper *,
+  body.printing-executive-report #bridge-issue-summary-report-paper,
+  body.printing-executive-report #bridge-issue-summary-report-paper * {
+    visibility: visible !important;
+  }
+
+  body.printing-executive-report #bridge-executive-report-paper,
+  body.printing-executive-report #bridge-issue-summary-report-paper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  /* Universal print helpers */
+  .no-print,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print\:block {
+    display: block !important;
+  }
+
+  /* Page break rules for executive documents */
+  .break-inside-avoid,
+  .page-break-inside-avoid {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .page-break-before-always {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+
+  .page-break-after-always {
+    break-after: page !important;
+    page-break-after: always !important;
+  }
+
+  /* Table formatting for print */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    break-inside: auto !important;
+  }
+
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tfoot {
+    display: table-footer-group !important;
+  }
+
+  th, td {
+    padding: 6px 8px !important;
+    font-size: 9pt !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  th {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Signature Block Preservation */
+  .signature-block,
+  .print-signature-area {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-top: 24px !important;
+    padding-top: 16px !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm;
+  }
+}
+
